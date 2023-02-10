@@ -23,6 +23,13 @@ body {
     padding: 0;
 }
 
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-gap: 10px;
+    padding: 10px;
+}
+
 header {
     background-color: var(--dark);
     color: #fff;

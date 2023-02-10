@@ -1,4 +1,5 @@
 const cardButton = document.querySelector(".card-button");
+const clearCards = document.querySelector(".clear-cards");
 const cardContainer = document.querySelector(".card-container");
 
 function getCards() {
@@ -12,9 +13,9 @@ function getCards() {
             const card = response.cards[0];
             console.log(card);
 
-            if (cardContainer.hasChildNodes()) {
-                cardContainer.removeChild(cardContainer.firstChild);
-            }
+            // if (cardContainer.hasChildNodes()) {
+            //     cardContainer.removeChild(cardContainer.firstChild);
+            // }
 
             const cardBody = document.createElement("div");
             const cardTitle = document.createElement("h5");
@@ -34,9 +35,13 @@ function getCards() {
         })
         .catch(function (error) {
             // handle what went wrong
+            console.log(error);
         });
 }
 
 
 
 $(cardButton).click(getCards);
+$(clearCards).click(function () {
+    cardContainer.innerHTML = "";
+});
