@@ -23,6 +23,8 @@ header {
 .main-content {
     padding: 20px;
     margin: 2rem;
+    display: flex;
+    flex-direction: column;
 }
 
 
@@ -85,7 +87,18 @@ button:hover {
     margin: 0;
     color: var(--dark);
     text-decoration: none;
-    /* display: flex; */
+}
+
+.image-container {
+    padding: 10px;
+    min-height: 50px;
+    
+}
+
+.get-avatar {
+    width: 20%;
+    object-fit: cover;
+    border-radius: 5px;
 }
 
 footer {
