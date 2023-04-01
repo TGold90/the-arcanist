@@ -8,7 +8,7 @@ const deleteCards = document.querySelector(".delete-cards");
 const getAvatar = document.querySelector(".get-avatar");
 
 let newGenPrompt = [];
-const apiKey = "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";
+
 
 function getCards() {
 

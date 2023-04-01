@@ -7,8 +7,8 @@ const openai = new OpenAIApi(configuration);
 
 const generateImage = async (req, res) => {
     try {
-        const response = await openai.generateImage({
-            prompt: "3 tarot cards combined to create a new image",
+        const response = await openai.createImage({
+            prompt: "soccer ball",
             n: 1,
             size: '512x512'
         });
@@ -20,6 +20,12 @@ const generateImage = async (req, res) => {
             data: imageUrl
         });
     } catch (error) {
+        if (error.response) {
+            console.log(error.response.status);
+            console.log(error.response.data);
+        } else {
+            console.log(error.message);
+        }
         res.status(400).json({
             success: false,
             error: 'Something went wrong'
