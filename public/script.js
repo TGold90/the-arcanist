@@ -1,6 +1,3 @@
-const generateAvatar = require('./openaiController');
-
-
 const cardButton = document.querySelector(".card-button");
 const clearCards = document.querySelector(".clear-cards");
 const cardContainer = document.querySelector(".card-container");
