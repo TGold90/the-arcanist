@@ -6,6 +6,7 @@ const getAvatar = document.querySelector(".get-avatar");
 const spinner = document.querySelector(".spinner");
 
 let currentCards = [];
+let imageURL;
 
 function showSpinner() {
     const spinner = document.querySelector(".spinner");
@@ -35,10 +36,8 @@ async function generateImageRequest(prompt) {
         }
 
         const data = await response.json();
-        console.log(data)
-        const imageURL = data.data;
+        return data;
 
-        return imageURL;
     } catch (error) {
         console.log(error);
     }
@@ -55,7 +54,8 @@ async function getCards() {
         const cardName = card.name;
         currentCards.push(cardName);
 
-        await generateImageRequest(cardName);
+        const imageData = await generateImageRequest("Tarot card: " + cardName + "in the style of the Thoth Deck");
+        imageURL = imageData.data;
         // handle card display
         const cardBody = document.createElement("div");
         const cardImage = document.createElement("img");
@@ -68,7 +68,7 @@ async function getCards() {
         cardTitle.classList.add("card-title");
         cardText.classList.add("card-text");
         //add card image
-        // cardImage.src = imageURL;
+        cardImage.src = imageURL;
 
 
         cardTitle.textContent = cardName;
@@ -77,6 +77,7 @@ async function getCards() {
 
         cardContainer.appendChild(cardBody);
         cardBody.appendChild(cardTitle);
+        cardBody.appendChild(cardImage);
         cardBody.appendChild(cardText);
         cardBody.appendChild(cardDelete);
 

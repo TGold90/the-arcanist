@@ -62,6 +62,7 @@ button:hover {
 .card-body {
     /* max width 1 grid col */
     display: flex;
+    flex-direction: column;
     justify-content: space-around;
     background-color: var(--light);
     color: var(--dark);
