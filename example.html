@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>OpenAI Image Generation Example</title>
+    <script src="https://cdn.jsdelivr.net/npm/@openai/api@0.5.1"></script>
+</head>
+
+<body>
+    <button id="generate-button">Generate Image</button>
+    <br><br>
+    <img id="output-image" style="display: none;">
+    <script>
+        const openai = new OpenAI(api_key);
+
+        const generateButton = document.getElementById("generate-button");
+        const outputImage = document.getElementById("output-image");
+
+        generateButton.addEventListener("click", async () => {
+            const prompt = "A beautiful sunset over the ocean.";
+            const model = "image-alpha-001";
+            const response = await openai.complete({
+                engine: "davinci",
+                prompt,
+                max_tokens: 1024,
+                n: 1,
+                stop: "\n",
+                temperature: 0.5,
+                model,
+            });
+            const imageSrc = response.choices[0].text.trim();
+            outputImage.setAttribute("src", imageSrc);
+            outputImage.style.display = "block";
+        });
+    </script>
+</body>
+
+</html>
