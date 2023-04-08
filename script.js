@@ -1,4 +1,4 @@
-
+const generateAvatar = require('./openaiController');
 
 
 const cardButton = document.querySelector(".card-button");
@@ -69,42 +69,42 @@ function deleteCard(event) {
 // OPEN AI IMAGE GENERATOR
 // https://beta.openai.com/docs/api-reference/images
 
-function generateAvatar(apiKey, arr) {
-    function promptString() {
-        console.log(arr);
-        const prompt = "Create an avatar that combines the elements of the following cards: " + arr.join(", ") + " in the style of Alestair Crowley's Thoth Tarot Deck."
-        return prompt;
-    }
-    const prompt = promptString();
+// function generateAvatar(apiKey, arr) {
+//     function promptString() {
+//         console.log(arr);
+//         const prompt = "Create an avatar that combines the elements of the following cards: " + arr.join(", ") + " in the style of Alestair Crowley's Thoth Tarot Deck."
+//         return prompt;
+//     }
+//     const prompt = promptString();
 
-    function imageGenerator(apiKey, imageUrl, prompt, model = "image-alpha-001", numImages = 1, size = "1024x1024", responseFormat = "url") {
-        return fetch("https://api.openai.com/v1/images/generations", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${apiKey}`,
-            },
-            body: JSON.stringify({
-                model,
-                prompt,
-                num_images: numImages,
-                size,
-                response_format: responseFormat,
-                image_url: imageUrl,
-            }),
-        })
-            .then((response) => {
-                console.log(response);
-                response.json()
-            })
-            .then((data) => data.data[0].url)
-            .catch((error) => console.log(error));
-    }
+//     function imageGenerator(apiKey, imageUrl, prompt, model = "image-alpha-001", numImages = 1, size = "1024x1024", responseFormat = "url") {
+//         return fetch("https://api.openai.com/v1/images/generations", {
+//             method: "POST",
+//             headers: {
+//                 "Content-Type": "application/json",
+//                 Authorization: `Bearer ${apiKey}`,
+//             },
+//             body: JSON.stringify({
+//                 model,
+//                 prompt,
+//                 num_images: numImages,
+//                 size,
+//                 response_format: responseFormat,
+//                 image_url: imageUrl,
+//             }),
+//         })
+//             .then((response) => {
+//                 console.log(response);
+//                 response.json()
+//             })
+//             .then((data) => data.data[0].url)
+//             .catch((error) => console.log(error));
+//     }
 
-    imageGenerator(apiKey, "", prompt, "image-alpha-001", 1, "1024x1024", "url").then((url) => console.log(url))
-        .catch((error) => console.log(error));
+//     imageGenerator(apiKey, "", prompt, "image-alpha-001", 1, "1024x1024", "url").then((url) => console.log(url))
+//         .catch((error) => console.log(error));
 
-};
+// };
 
 
 $(cardButton).click(getCards);
