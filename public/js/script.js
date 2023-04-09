@@ -51,15 +51,18 @@ async function getCards() {
         const response = await fetch("https://tarot-api.onrender.com/api/v1/cards/random?n=1");
         const data = await response.json();
         const card = data.cards[0];
+        console.log(card);
         const cardName = card.name;
         currentCards.push(cardName);
 
-        const imageData = await generateImageRequest("Tarot card: " + cardName + "in the style of the Thoth Deck");
-        imageURL = imageData.data;
+        // const imageData = await generateImageRequest("Tarot card: " + cardName + "in the style of world of warcraft");
+        // imageURL = imageData.data;
         // handle card display
         const cardBody = document.createElement("div");
+        const cardHeader = document.createElement("div");
         const cardImage = document.createElement("img");
         const cardDelete = document.createElement("button");
+        const cardSave = document.createElement("button");
         const cardTitle = document.createElement("h5");
         const cardText = document.createElement("p");
 
@@ -67,8 +70,10 @@ async function getCards() {
         cardDelete.classList.add("card-delete");
         cardTitle.classList.add("card-title");
         cardText.classList.add("card-text");
+        cardHeader.classList.add("card-header");
         //add card image
-        cardImage.src = imageURL;
+        // cardImage.src = imageURL;
+        cardImage.src = "IMG_1378.png";
 
 
         cardTitle.textContent = cardName;
@@ -76,16 +81,22 @@ async function getCards() {
         // cardText.textContent = card.meaning_up;
 
         cardContainer.appendChild(cardBody);
-        cardBody.appendChild(cardTitle);
+        cardBody.appendChild(cardHeader);
+        cardHeader.appendChild(cardTitle);
+        cardHeader.appendChild(cardDelete);
         cardBody.appendChild(cardImage);
         cardBody.appendChild(cardText);
-        cardBody.appendChild(cardDelete);
 
         removeSpinner();
     } catch (error) {
         console.log(error);
         removeSpinner();
     }
+}
+
+//function to save card to local storage
+function saveCards() {
+    localStorage.setItem("currentCards", JSON.stringify(currentCards));
 }
 
 function deleteCard(event) {
