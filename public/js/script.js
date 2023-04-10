@@ -4,6 +4,7 @@ const cardContainer = document.querySelector(".card-container");
 const deleteCards = document.querySelector(".delete-cards");
 const getAvatar = document.querySelector(".get-avatar");
 const spinner = document.querySelector(".spinner");
+const saveButton = document.querySelector(".save-button");
 
 let currentCards = [];
 let imageURL;
@@ -71,6 +72,7 @@ async function getCards() {
         cardTitle.classList.add("card-title");
         cardText.classList.add("card-text");
         cardHeader.classList.add("card-header");
+        cardImage.classList.add("card-image");
         //add card image
         // cardImage.src = imageURL;
         cardImage.src = "IMG_1378.png";
@@ -123,3 +125,5 @@ $(getAvatar).click(async function () {
     const prompt = 'thomas goldstein';
     await generateImageRequest(prompt);
 });
+
+$(saveButton).click(saveCards);
