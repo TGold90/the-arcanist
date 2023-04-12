@@ -6,7 +6,10 @@ const getAvatar = document.querySelector(".get-avatar");
 const spinner = document.querySelector(".spinner");
 const saveButton = document.querySelector(".save-button");
 
-let currentCards = [];
+let currentCards = {
+    names: [],
+    images: []
+};
 let imageURL;
 
 function showSpinner() {
@@ -54,10 +57,15 @@ async function getCards() {
         const card = data.cards[0];
         console.log(card);
         const cardName = card.name;
-        currentCards.push(cardName);
 
-        // const imageData = await generateImageRequest("Tarot card: " + cardName + "in the style of world of warcraft");
-        // imageURL = imageData.data;
+
+
+        const imageData = await generateImageRequest("Tarot card: " + cardName + "in the style of adventure time");
+        imageURL = imageData.data;
+
+        currentCards.names.push(cardName);
+        currentCards.images.push(imageURL);
+
         // handle card display
         const cardBody = document.createElement("div");
         const cardHeader = document.createElement("div");
@@ -73,18 +81,21 @@ async function getCards() {
         cardText.classList.add("card-text");
         cardHeader.classList.add("card-header");
         cardImage.classList.add("card-image");
+        cardSave.classList.add("card-save");
         //add card image
-        // cardImage.src = imageURL;
-        cardImage.src = "IMG_1378.png";
+        cardImage.src = imageURL;
+        // cardImage.src = "IMG_1378.png";
 
 
         cardTitle.textContent = cardName;
         cardDelete.textContent = "X";
+        cardSave.textContent = "Save";
         // cardText.textContent = card.meaning_up;
 
         cardContainer.appendChild(cardBody);
         cardBody.appendChild(cardHeader);
         cardHeader.appendChild(cardTitle);
+        cardHeader.appendChild(cardSave);
         cardHeader.appendChild(cardDelete);
         cardBody.appendChild(cardImage);
         cardBody.appendChild(cardText);
@@ -94,14 +105,18 @@ async function getCards() {
         console.log(error);
         removeSpinner();
     }
+    console.log(cardContainer)
 }
 
-//function to save card to local storage
+//save one card and all of its data to local storage
 function saveCards() {
     localStorage.setItem("currentCards", JSON.stringify(currentCards));
 }
 
+
 function deleteCard(event) {
+
+
     const card = event.target.parentNode;
     const cardIndex = Array.from(cardContainer.children).indexOf(card);
     currentCards.splice(cardIndex, 1);
@@ -121,9 +136,10 @@ $(cardContainer).click(function (event) {
     }
 });
 
-$(getAvatar).click(async function () {
-    const prompt = 'thomas goldstein';
-    await generateImageRequest(prompt);
-});
+// $(getAvatar).click(async function () {
+//     const prompt = 'thomas goldstein';
+//     await generateImageRequest(prompt);
+// });
 
 $(saveButton).click(saveCards);
+
